@@ -1,5 +1,5 @@
 # Сборка
-FROM golang:1.26-rc-alpine AS builder
+FROM golang:1.26.4-alpine AS builder
 WORKDIR /app
 COPY . .
 RUN go build -o server main.go
