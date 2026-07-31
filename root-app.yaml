@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root-app
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: 'file:///home/me/git-repos/my-cluster-config.git'
+    targetRevision: HEAD
+    path: 'apps' # Указываем папку, где лежат остальные application.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: argocd # Родитель живет там же, где и сам Argo CD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
